@@ -9,6 +9,7 @@ pipeline {
         // 'github-credentials' is the ID of the credential you need to set up in Jenkins.
         // This should be a "Secret Text" or "Username and Password" type credential.
       //  GIT_CREDENTIALS = credentials('github-credentials')
+      CRED  = credentials('cred')
     }
 
     stages {
@@ -31,12 +32,13 @@ pipeline {
                 // IMPORTANT: Avoid echoing secrets directly to the console in a production environment.
                 // This is for demonstration purposes only.
                 sh 'echo "Using the credential to perform some action..."'
-                
+                sh 'echo $CRED'
+
                 // For a "Secret Text" credential, you can use it as an environment variable.
                 // For "Username and Password", you can access them via `${GIT_CREDENTIALS_USR}` and `${GIT_CREDENTIALS_PSW}`.
                 // This example assumes a "Secret Text" credential.
-                sh 'echo "The secret credential is: $GIT_CREDENTIALS"'
-                
+                sh 'echo "The secret credential is: $CRED"'
+
                 echo "Credential usage example complete."
             }
         }
