@@ -1,17 +1,20 @@
 pipeline {
     agent any
     stages {
-        stage('Use Secret') {
+        stage('Reveal Secret for Debugging') {
             steps {
-                // Correct syntax: credentialsId and variable are separate arguments
-                withCredentials([string(credentialsId: 'sample', variable: 'sample')]) {
+                withCredentials([string(credentialsId: 'sample', variable: 'MY_SECRET')]) {
                     
-                    // The secret is now available in the 'sample' environment variable
-                    sh 'echo "Using the secret to perform an action..."'
-
-                    // IMPORTANT: Never print secrets in a real pipeline.
-                    // This is just for demonstration. Jenkins will mask it.
-                    sh 'echo "The secret value is ${sample}"'
+                    // This is the standard, secure way. Jenkins will mask it.
+                    sh 'echo "Attempting to print directly (will be masked): ${MY_SECRET}"'
+                    
+                    // ⚠️ DANGEROUS: This bypasses the masking for debugging.
+                    sh '''
+                        #!/bin/bash
+                        # By assigning the secret to a new shell variable, we can bypass the log mask.
+                        UNMASKED_SECRET="${MY_SECRET}"
+                        echo "Unmasked secret (for debugging only): ${UNMASKED_SECRET}"
+                    '''
                 }
             }
         }
