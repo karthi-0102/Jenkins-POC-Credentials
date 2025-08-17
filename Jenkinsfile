@@ -1,17 +1,15 @@
 pipeline {
     agent any
-
-
     stages {
-        stage('Checkout') {
+        stage('Use Secret') {
             steps {
-                // The checkout will now happen in a clean directory
-                checkout scm
-            }
-        }
-        stage('Build') {
-            steps {
-                sh 'echo "Building..."'
+                // Use the ID you created, e.g., 'my-github-api-token'
+                withCredentials([string(credentialsId: 'sample, variable: 'sample')]) {
+                    
+                    // The secret is now available in the SECRET_API_KEY environment variable
+                    sh 'echo "Using the secret to perform an action..."'
+                    sh "echo $sample"
+                }
             }
         }
     }
