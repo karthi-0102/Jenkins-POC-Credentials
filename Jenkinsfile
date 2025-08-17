@@ -1,8 +1,9 @@
 pipeline {
     // It's best practice to have no global agent
-    agent {
-        docker { image "ubuntu:20.04" }
-    }
+   agent {
+    docker { image "docker:20.10.24-dind" }
+}
+
 
     stages {
         stage('Pull Ubuntu Image') {
