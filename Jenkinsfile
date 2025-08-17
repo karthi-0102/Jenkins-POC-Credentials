@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    // Add this options block to automatically clean the workspace
-    options {
-        cleanWs()
-    }
 
     stages {
         stage('Checkout') {
