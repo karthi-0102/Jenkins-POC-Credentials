@@ -1,20 +1,21 @@
 pipeline {
-    // It's best practice to have no global agent
-   agent {
-    docker { image "docker:20.10.24-dind" }
-}
+    agent any
 
+    // Add this options block to automatically clean the workspace
+    options {
+        cleanWs()
+    }
 
     stages {
-        stage('Pull Ubuntu Image') {
-            // This tells Jenkins to run these steps inside a temporary container
-            // The 'docker:latest' image contains the Docker CLI tools we need
+        stage('Checkout') {
             steps {
-                echo 'I am now running inside a Docker container agent!'
-                
-                // This command uses the Docker CLI available insid
-                sh 'echo "Hello from the agent!"'
-                sh 'ls -la'
+                // The checkout will now happen in a clean directory
+                checkout scm
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'echo "Building..."'
             }
         }
     }
