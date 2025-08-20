@@ -11,7 +11,6 @@ pipeline {
                     
                     // The 'cut' command will receive '****' as input
                     sh 'echo "${MY_SECRET}" | cut -c 1-5'
-                    # This command will print the value to the console
                     sh 'echo "The user who triggered this build is: $github_user"'
                 }
             }
