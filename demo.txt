@@ -2,7 +2,3 @@ empty file
 hello12
 hello41
 11
-12
-11
-11
-11
